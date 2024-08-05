@@ -12,7 +12,12 @@ Rastreio de localização
 Locais salvos.
 Verificação de distancia da localização atual em relação a lista de locais salvos.
 
-Embora a qualidade do produto está abaixo do esperado, considere como se tivesse sido feito em apenas 24 (vide commits).
+Melhorias importantes necessárias:
+Uma UI melhor trabalhada
+Lidar de forma melhor com Zoom e movimentação da tela para levar em conta interações do usuário ( toques com 2 dedos)
+Melhorar o algoritmo para reduzir consumo de bateria(O algoritmo atual fez apenas algo básico e não está otimizado)
+
+Embora a qualidade do produto está abaixo do esperado, considere como se tivesse sido feito em apenas 24 horas (vide commits).
 
 Bibliotecas utilizadas:
 async-storage, geolocation, redux
