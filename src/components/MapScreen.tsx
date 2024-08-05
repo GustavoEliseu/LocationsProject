@@ -1,15 +1,16 @@
 import React, { RefObject, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ToastAndroid } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../redux/locationStore';
 import { startLocationService, stopLocationService } from '../service/locationService';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import FAB from '../util/FAB';
 import userMapLocationHook from '../hooks/userMapLocationHook';
+import SearchDialog from './newLocationsDialog';
 
 const LocationComponent: React.FC = () => {
     const dispatch = useDispatch();
     const { mapRef, isLocationSet, zoomLevel, handleZoomIn, handleZoomOut, error } = userMapLocationHook();
+    const [isDialogVisible, setDialogVisible] = useState(false);
 
     useEffect(() => {
         startLocationService(dispatch);
@@ -21,7 +22,6 @@ const LocationComponent: React.FC = () => {
 
     let lat = 37.78825;
     let lon = -122.4324;
-    console.log(isLocationSet)
 
     return (
         <View style={styles.container}>
@@ -51,10 +51,20 @@ const LocationComponent: React.FC = () => {
                                     <Text style={styles.zoomText}>-</Text>
                                 </TouchableOpacity>
                             </View>
-                            <FAB title='add' onPress={() => { ToastAndroid.show("Clicou", ToastAndroid.SHORT) }} />
+                            <FAB title='add' onPress={() => { if (!isDialogVisible) setDialogVisible(true) }} />
+
                         </>
                     ) : (
                         <Text style={styles.text}>Esperando localização...</Text>)}
+                    <SearchDialog
+                        visible={isDialogVisible}
+                        onDismiss={function (): void {
+                            setDialogVisible(false)
+                        }}
+                        onAddLocation={function (location): void {
+                            ToastAndroid.show(location.name, ToastAndroid.SHORT)
+                        }} />
+
                 </>
             )}
         </View>

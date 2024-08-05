@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MapView from 'react-native-maps';
-import { RootState } from '../redux/locationStore';
+import { RootState } from '../redux/stores/locationStore';
 import { startLocationService, stopLocationService } from '../service/locationService';
 
 
@@ -67,5 +67,7 @@ const userMapLocationHook = () => {
 
     return { mapRef, isLocationSet, zoomLevel, handleZoomIn, handleZoomOut, error };
 };
+
+
 
 export default userMapLocationHook;

@@ -4,18 +4,21 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import MapScreen from './src/screens/MapScreen';
+import MapScreen from './src/components/MapScreen';
 import { Provider } from 'react-redux';
-import locationStore from './src/redux/locationStore';
+import locationStore from './src/redux/stores/locationStore';
+import { PaperProvider } from 'react-native-paper';
 
 
 
 function App(): React.JSX.Element {
   return (
     <Provider store={locationStore} >
-      <View style={styles.container}>
-        <MapScreen />
-      </View>
+      <PaperProvider>
+        <View style={styles.container}>
+          <MapScreen />
+        </View>
+      </PaperProvider>
     </Provider>
   );
 }

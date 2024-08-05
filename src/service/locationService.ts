@@ -1,6 +1,6 @@
 import Geolocation from 'react-native-geolocation-service';
-import { AppDispatch } from '../redux/locationStore';
-import { setLocation, setLocationError } from '../redux/locationSlice';
+import { AppDispatch } from '../redux/stores/locationStore';
+import { setLocation, setLocationError } from '../redux/slices/locationSlice';
 import { PermissionsAndroid } from 'react-native';
 
 let watchId: number | null = null;
