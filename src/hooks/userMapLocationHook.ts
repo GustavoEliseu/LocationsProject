@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import MapView from 'react-native-maps';
+import MapView, { Region } from 'react-native-maps';
 import { RootState } from '../redux/stores/locationStore';
-import { startLocationService, stopLocationService } from '../service/locationService';
+import { startLocationService, stopLocationService } from '../services/locationService';
 
 
 let isLocationSet = false
@@ -16,8 +16,9 @@ const userMapLocationHook = () => {
         isLocationSet = true
         return state.location
     });
-    let lat = latitude ?? 37.78825;
-    let lon = longitude ?? -122.4324;
+    let lat = latitude ?? -3.71839;
+    let lon = longitude ?? -38.5434;
+
 
     useEffect(() => {
         startLocationService(dispatch);
@@ -29,16 +30,11 @@ const userMapLocationHook = () => {
 
     useEffect(() => {
         if (latitude !== null && longitude !== null && mapRef.current) {
-            mapRef.current.animateToRegion({
-                latitude,
-                longitude,
-                latitudeDelta: zoomLevel,
-                longitudeDelta: zoomLevel,
-            });
+            updatePosition()
         }
     }, [latitude, longitude, zoomLevel]);
 
-    const updatePosition = (newZoom: number) => {
+    const updatePosition = (newZoom: number = zoomLevel) => {
         if (mapRef.current) {
             mapRef.current.animateToRegion({
                 latitude: lat,
@@ -51,7 +47,7 @@ const userMapLocationHook = () => {
 
     const handleZoomIn = () => {
         setZoomLevel(prevZoom => {
-            const newZoom = Math.max(prevZoom - 0.005, 0.001);
+            const newZoom = Math.max(prevZoom - 0.008, 0.001);
             updatePosition(newZoom);
             return newZoom;
         });
@@ -59,7 +55,7 @@ const userMapLocationHook = () => {
 
     const handleZoomOut = () => {
         setZoomLevel(prevZoom => {
-            const newZoom = Math.min(prevZoom + 0.005, 0.6);
+            const newZoom = Math.min(prevZoom + 0.008, 0.6);
             updatePosition(newZoom)
             return newZoom;
         });
