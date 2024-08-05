@@ -13,7 +13,8 @@ const userMapLocationHook = () => {
     const { latitude, longitude, error } = useSelector((state: RootState) => {
         lat = state.location.latitude ?? lat;
         lon = state.location.longitude ?? lon;
-        isLocationSet = true
+        if (state.location)
+            isLocationSet = true
         return state.location
     });
     let lat = latitude ?? -3.71839;
